@@ -1,0 +1,17 @@
+$base: #FF7F00;
+@include extjs-button-ui(
+    $ui: 'save-small',
+    $background-color: lighten($base, 20%),
+    $background-color-over: darken($base, 0%),
+    $background-color-focus: darken($base, 0%),
+    $background-color-pressed: darken($base, 0%),
+    $background-color-disabled: lighten($base, 40%),
+    $background-gradient: null,
+    $border-radius: 4px,
+    $border-color: darken($base, 50%),
+    $glyph-color: #fff,
+    $color: black,
+    $font-family: $button-small-font-family,
+    $font-weight: $button-small-font-weight,
+    $padding: 4px
+);

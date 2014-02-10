@@ -1,0 +1,53 @@
+{
+    "name": "tunesmini",
+    "settings": {
+        "cmd": {
+            "license": "commercial"
+        },
+        "canvasControls": {
+            "viewportSize": {
+                "name": "Auto Expand",
+                "builtIn": true,
+                "height": null,
+                "width": null
+            }
+        },
+        "urlPrefix": "http://ln5dev-mbx-w-1.mindbrix.com:59718/tunesmini",
+        "exportPath": "",
+        "buildShouldOverwriteIndex": true,
+        "generateArchitectVersion": true,
+        "spacesToIndent": 4,
+        "lineEnding": "CRLF",
+        "genTimestamps": false,
+        "cacheBust": false,
+        "displayfield-ExtBox1-1319-inputEl": "Not Installed"
+    },
+    "xdsVersion": "3.0.2",
+    "xdsBuild": 1375,
+    "schemaVersion": 1,
+    "upgradeVersion": 300000000004,
+    "framework": "ext42",
+    "viewOrderMap": {
+        "view": [
+            "a6883677-65f1-4446-a33a-b3f8b2349d85",
+            "c9e6e0bd-9485-47af-93cc-63a0c41a245c"
+        ],
+        "store": [
+            "70c6269d-95a4-443e-9297-3feb7f3e04a6"
+        ],
+        "controller": [
+            "d0b8a01b-4f39-4a62-8760-d2a9541de80b"
+        ],
+        "model": [
+            "f3538118-f668-4e78-896d-dcc5ffd098b9"
+        ],
+        "resource": [
+            "7ed24573-fddd-469a-ad26-30b69e3b3bbc",
+            "a95619d2-2e7b-49b4-9056-c9f503ed7657",
+            "54617302-9945-4b9e-b52d-0c62aec91f3c"
+        ],
+        "app": [
+            "application"
+        ]
+    }
+}

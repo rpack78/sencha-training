@@ -1,0 +1,92 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Tune"
+    },
+    "designerId": "f3538118-f668-4e78-896d-dcc5ffd098b9",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "mapping": "['im:artist'].label",
+                "name": "artist"
+            },
+            "designerId": "72508f6e-a742-4f42-852d-ed8b4fd1a251"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "mapping": "id.attributes['im:id']",
+                "name": "id"
+            },
+            "designerId": "4d8daf54-3b2a-44ae-959e-7dc988d8913c"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "mapping": "['im:image'][2].label",
+                "name": "image"
+            },
+            "designerId": "740c5bbd-fd91-4857-9c97-a3efb72c5157"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "mapping": "link[0].attributes.href",
+                "name": "link"
+            },
+            "designerId": "7f4b4eff-9bdf-406f-a1d5-75edf9ec0db9"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "mapping": "link[1].attributes.href",
+                "name": "preview"
+            },
+            "designerId": "fc5c52e8-3571-4b21-aa3b-64fab6418a12"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "mapping": "['im:name'].label",
+                "name": "title"
+            },
+            "designerId": "b1b306dd-8756-493a-af61-533d2de3c850"
+        }
+    ]
+}

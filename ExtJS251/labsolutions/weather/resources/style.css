@@ -1,0 +1,20 @@
+.month {
+    float: left;
+    border: thin solid ;
+    width: 180px;
+    height: 90px;
+    padding: 10px;
+    margin: 10px 5px 0 5px;
+    border: 1px dotted #999;
+    background: #CCCCCC;
+    color: #555;
+}
+
+.month.over {
+    background: #EEEEEE;
+}
+
+.month.selected {
+    background: white;
+    border: 2px solid black;
+}

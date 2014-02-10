@@ -1,0 +1,37 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoShow": true,
+        "designer|userClassName": "PreviewWindow",
+        "height": 352,
+        "modal": true,
+        "resizable": [
+            "false"
+        ],
+        "title": "My Window",
+        "width": 640
+    },
+    "designerId": "c9e6e0bd-9485-47af-93cc-63a0c41a245c",
+    "cn": [
+        {
+            "type": "Ext.XTemplate",
+            "reference": {
+                "name": "tpl",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "tpl",
+                "implHandler": [
+                    "<video autoplay preload=\"auto\"><source src=\"{preview}\" type=\"video/mp4\"></video>"
+                ]
+            },
+            "designerId": "520f9c4f-56fe-4824-92ef-e42d3c369a7a"
+        }
+    ]
+}

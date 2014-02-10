@@ -1,0 +1,1067 @@
+3.1.7 (Brainy Betty)
+d08b929193a108ac16ce155f16de5ce2a21d319d
+o:Sass::Tree::RootNode
+:@template"ú/// private
+$menu-icon-separator-indent: left($menu-padding) + $menu-item-icon-size + ($menu-item-icon-horizontal-spacing * 2);
+// private
+$menu-item-indent: ($menu-icon-separator-indent + $menu-separator-size + $menu-item-text-horizontal-spacing);
+
+@if $menu-border-width != null {
+    .#{$prefix}menu {
+        // if $menu-border-width is null, we will inherit body border from Panel
+        border-style: $menu-border-style;
+        border-width: $menu-border-width;
+        border-color: $menu-border-color;
+    }
+}
+.#{$prefix}menu-body {
+    background: $menu-background-color;
+    padding: $menu-padding;
+}
+
+.#{$prefix}menu-icon-separator {
+    left: $menu-icon-separator-indent;
+    border-left: solid 1px $menu-separator-border-color;
+    background-color: $menu-separator-background-color;
+    width: $menu-separator-size;
+}
+
+@if $include-rtl {
+    .#{$prefix}rtl.#{$prefix}menu .#{$prefix}menu-icon-separator {
+        left: auto;
+        right: $menu-icon-separator-indent;
+    }
+}
+
+.#{$prefix}menu-item {
+    // Inactive menu items have padding in place of the active border width.
+    // When active, they get their border added, but padding set to zero.
+    // So that there's no border occluding the Menu when an item is inactive.
+    // TODO: When we drop IE6, use transparent borders on inactive items and no padding and remove this hack.
+    @if $menu-item-border-width != 0 {
+        padding: $menu-item-border-width;
+    }
+    cursor: $menu-item-cursor;
+}
+
+// Components used as menu items configured with "indent:true" are assigned a css class of x-menu-item-indent, unless
+// the menu is configured with "plain: true"
+.#{$prefix}menu-item-indent {
+    margin-left: $menu-item-indent;
+}
+
+@if $include-rtl {
+    .#{$prefix}rtl.#{$prefix}menu-item-indent {
+        margin-left: 0;
+        margin-right: $menu-item-indent;
+    }
+}
+
+.#{$prefix}menu-item-active {
+    @include background-gradient($menu-item-active-background-color, $menu-item-background-gradient);
+    border-color: $menu-item-active-border-color;
+    @if $menu-item-active-border-radius != 0 {
+        @include border-radius($menu-item-active-border-radius);
+    }
+
+    // When active, the border takes the place of padding so that a border can appear
+    // without changing the overall size of the item.
+    // TODO: When we drop IE6, use transparent borders on inactive items and no padding and remove this hack.
+    @if $menu-item-border-width != 0 {
+        border-width: $menu-item-border-width;
+        border-style: solid;
+        padding: 0;
+    }
+
+    // Background linear gradient
+    @if not $supports-gradients or $compile-all {
+        .#{$prefix}nlg & {
+            background: $menu-item-active-background-color repeat-x left top;
+            background-image: slicer-background-image(menu-item-link, 'menu/menu-item-active-bg');
+        }
+    }
+}
+
+.#{$prefix}menu-item-link {
+    line-height: $menu-item-height - vertical($menu-item-border-width);
+    padding: 0 $menu-item-trailing-padding 0 $menu-item-indent;
+
+    // Otherwise, multi line menu items wrap into the padding area (icon space) in Webkit
+    display: inline-block;
+}
+
+@if $include-rtl {
+    .#{$prefix}rtl.#{$prefix}menu-item-link {
+        padding: 0 $menu-item-indent 0 $menu-item-trailing-padding;
+    }
+}
+
+// Menu check items need padding at end to accommodate checkbox.
+// Class is always x-right-check-item-text where "right" means "after"
+.#{$prefix}right-check-item-text {
+    padding-right: $menu-check-item-padding;
+}
+@if $include-rtl {
+    .#{$prefix}rtl.#{$prefix}right-check-item-text {
+        padding-left: $menu-check-item-padding;
+        padding-right: 0;
+    }
+}
+
+.#{$prefix}menu-item-icon {
+    width: $menu-item-icon-size;
+    height: $menu-item-icon-size;
+    top: $menu-item-icon-top;
+    left: $menu-item-icon-horizontal-spacing;
+    background-position: $menu-item-icon-background-position;
+}
+
+.#{$prefix}menu-item-glyph {
+    font-size: $menu-item-icon-size;
+    line-height: $menu-item-icon-size;
+    color: $menu-glyph-color;
+
+    @if $menu-glyph-opacity != 1 {
+        // do not use the opacity mixin because we do not want IE's filter version of
+        // opacity to be included.  We emulate the opacity setting in IE8m by mixing
+        // the icon color into the background color. (see below)
+        opacity: $menu-glyph-opacity;
+    }
+    // In IE8 and below when a glyph contains partially transparent pixels, we 
+    // can't apply an opacity filter to the glyph element, because IE8m will render
+    // the partially transparent pixels of the glyph as black. To work around this,
+    // we emulate the approximate color that the glyph would have if it had opacity
+    // applied by mixing the glyph color with the menus's background-color.
+    .#{$prefix}ie8m & {
+        color: mix($menu-glyph-color, $menu-background-color, $menu-glyph-opacity * 100);
+    }
+}
+
+// Stop the addition of bordering to active items shifting the menu icon in bad IEs (and FF)
+// TODO: When we drop IE6, use transparent borders on inactive items and no padding and remove this hack.
+@if $menu-item-border-width != 0 {
+    .#{$prefix}gecko .#{$prefix}menu-item-active .#{$prefix}menu-item-icon,
+    .#{$prefix}quirks .#{$prefix}menu-item-active .#{$prefix}menu-item-icon,
+    .#{$prefix}ie9m .#{$prefix}menu-item-active .#{$prefix}menu-item-icon {
+        top: ($menu-item-icon-top - $menu-item-border-width);
+        left: ($menu-item-icon-horizontal-spacing - $menu-item-border-width);
+    }
+}
+
+@if $include-rtl {
+    .#{$prefix}rtl.#{$prefix}menu-item-icon {
+        left: auto;
+        right: $menu-item-icon-horizontal-spacing;
+    }
+
+    // Stop the addition of bordering to active items shifting the menu icon in bad IEs (and FF)
+    // TODO: When we drop IE6, use transparent borders on inactive items and no padding and remove this hack.
+    @if $menu-item-border-width != 0 {
+        .#{$prefix}gecko .#{$prefix}menu-item-active .#{$prefix}rtl.#{$prefix}menu-item-icon,
+        .#{$prefix}quirks .#{$prefix}menu-item-active .#{$prefix}rtl.#{$prefix}menu-item-icon,
+        .#{$prefix}ie9m .#{$prefix}menu-item-active .#{$prefix}rtl.#{$prefix}menu-item-icon {
+            left: auto;
+            right: ($menu-item-icon-horizontal-spacing - $menu-item-border-width);
+        }
+    }
+}
+
+// For when an icon needs to be used in the right position where a submenu arrow usually goes.
+// eg: When a CheckItem needs an icon. The left icon position is a checkbox, so the icon is moved to the right.
+.#{$prefix}menu-item-icon-right {
+    width: $menu-item-icon-size;
+    height: $menu-item-icon-size;
+    top: round(($menu-item-height - vertical($menu-item-border-width) - $menu-item-icon-size) / 2);
+    right: $menu-item-icon-horizontal-spacing;
+    background-position: $menu-item-icon-background-position;
+}
+
+@if $include-rtl {
+    .#{$prefix}rtl.#{$prefix}menu-item-icon-right {
+        right: auto;
+        left: $menu-item-icon-horizontal-spacing;
+    }
+}
+
+.#{$prefix}menu-item-text {
+    font-size: $menu-item-font-size;
+    color: $menu-text-color;
+    cursor: $menu-item-cursor; // needed to override cursor:default set by x-unselectable
+    margin-right: $menu-item-arrow-width + 4; // Leave space for a submenu arrow
+}
+
+// If inside a menu link item with RTL, switch the margin space for the submenu arrow
+@if $include-rtl {
+    a.#{$prefix}rtl {
+        .#{$prefix}menu-item-text {
+            margin-right: 0;
+            margin-left: $menu-item-arrow-width + 4;
+        }
+    }
+}
+
+.#{$prefix}menu-item-checked {
+    .#{$prefix}menu-item-icon, .#{$prefix}menu-item-icon-right {
+        background-image: theme-background-image('menu/checked');
+    }
+    .#{$prefix}menu-group-icon {
+        background-image: theme-background-image('menu/group-checked');
+    }
+}
+
+.#{$prefix}menu-item-unchecked {
+    .#{$prefix}menu-item-icon, .#{$prefix}menu-item-icon-right {
+        background-image: theme-background-image('menu/unchecked');
+    }
+    .#{$prefix}menu-group-icon {
+        background-image: none;
+    }
+}
+
+.#{$prefix}menu-item-separator {
+    height: $menu-separator-size;
+    border-top: solid 1px $menu-separator-border-color;
+    background-color: $menu-separator-background-color;
+    margin: $menu-item-separator-margin;
+    padding: 0;
+}
+
+.#{$prefix}menu-item-arrow {
+    width: $menu-item-arrow-width;
+    height: $menu-item-arrow-height;
+    top: $menu-item-arrow-top;
+    right: $menu-item-arrow-horizontal-spacing;
+    background-image: theme-background-image('menu/menu-parent');
+}
+
+// Stop the addition of bordering to active items shifting the arrow in bad IEs (and FF)
+// TODO: When we drop IE6, use transparent borders on inactive items and no padding and remove this hack.
+@if $menu-item-border-width != 0 {
+    .#{$prefix}gecko .#{$prefix}menu-item-active .#{$prefix}menu-item-arrow,
+    .#{$prefix}quirks .#{$prefix}menu-item-active .#{$prefix}menu-item-arrow,
+    .#{$prefix}ie9m .#{$prefix}menu-item-active .#{$prefix}menu-item-arrow {
+        top: ($menu-item-arrow-top - $menu-item-border-width);
+        right: ($menu-item-arrow-horizontal-spacing - $menu-item-border-width);
+    }
+}
+
+@if $include-rtl {    
+    .#{$prefix}rtl.#{$prefix}menu-item-arrow {
+        left: $menu-item-arrow-horizontal-spacing;
+        right: auto;
+        background-image: theme-background-image('menu/menu-parent-left');
+    }
+
+    // Stop the addition of bordering to active items shifting the arrow in bad IEs (and FF)
+    // TODO: When we drop IE6, use transparent borders on inactive items and no padding and remove this hack.
+    @if $menu-item-border-width != 0 {
+        .#{$prefix}gecko .#{$prefix}menu-item-active .#{$prefix}rtl.#{$prefix}menu-item-arrow,
+        .#{$prefix}ie9m .#{$prefix}menu-item-active .#{$prefix}rtl.#{$prefix}menu-item-arrow,
+        .#{$prefix}quirks .#{$prefix}menu-item-active .#{$prefix}rtl.#{$prefix}menu-item-arrow {
+            right: auto;
+            left: ($menu-item-arrow-horizontal-spacing - $menu-item-border-width);
+        }
+    }
+}
+
+.#{$prefix}menu-item-disabled {
+    @include opacity($menu-item-disabled-opacity);
+}
+
+@if $include-content-box {
+  .#{$prefix}content-box {
+        .#{$prefix}menu-icon-separator {
+            width: $menu-separator-size - 1;
+        }
+
+        .#{$prefix}menu-item-separator {
+            height: $menu-separator-size - 1;
+        }
+    }
+
+    .#{$prefix}ie {
+        .#{$prefix}menu-item-disabled {
+            .#{$prefix}menu-item-icon {
+                @include opacity($menu-item-disabled-opacity);
+            }
+
+            .#{$prefix}menu-item-text {
+                // IE opacity/cleartype bug workaround
+                background-color: transparent;
+            }
+        }
+    }
+}
+
+// TODO: what is this for?
+.#{$prefix}menu-date-item {
+    border-color: #99BBE8;
+}
+
+@if $include-ext-form-labelable {
+    // When Fields are added to Menus...
+    .#{$prefix}menu-item .#{$prefix}form-item-label {
+        font-size: $menu-item-font-size;
+        color: $menu-text-color;
+    }
+}
+
+.#{$prefix}menu-scroll-top {
+    height: $menu-scroller-height;
+    background-image: theme-background-image('menu/scroll-top');
+}
+.#{$prefix}menu-scroll-bottom {
+    height: $menu-scroller-height;
+    background-image: theme-background-image('menu/scroll-bottom');
+}
+
+
+.#{$prefix}menu-scroll-top, .#{$prefix}menu-scroll-bottom {
+    @if $menu-scroller-opacity != 1 {
+        @include opacity($menu-scroller-opacity);   
+    }
+    @if $menu-scroller-opacity != 1 $menu-scroller-opacity-over != 1 $menu-scroller-opacity-pressed != 1 {
+        // EXTJSIV-8846: partially transparent png images do not display correctly
+        // in winXP/IE8m when the image element has a transparent background.
+        // to fix this, we give the element the same background-color as the menu.
+        background-color: $menu-background-color;
+    }
+}
+
+@if $menu-scroller-opacity-over != 1 or $menu-scroller-opacity != 1 {
+    .#{$prefix}menu-scroll-top-hover, .#{$prefix}menu-scroll-bottom-hover {
+        @include opacity($menu-scroller-opacity-over);
+    }
+}
+
+@if $menu-scroller-opacity-pressed != 1 or $menu-scroller-opacity != 1 {
+    .#{$prefix}menu-scroll-top-pressed, .#{$prefix}menu-scroll-bottom-pressed {
+        @include opacity($menu-scroller-opacity-pressed);
+    }
+}
+
+@include x-slicer(menu-item-link);
+:@children[4o:Sass::Tree::CommentNode:
+@loud0;[ :@options{ :@value"/* private */:@silenti :
+@linei:@lines[ o:Sass::Tree::VariableNode:
+@name"menu-icon-separator-indent;[ :@guarded0;
+@
+;i:
+@expro:Sass::Script::Operation
+;
+@
+;i:@operand2o;
+;
+@
+;i;o:Sass::Script::Number:@denominator_units[ :@numerator_units[ ;
+@
+;i:@original"2;i:@operator:
+times:@operand1o:Sass::Script::Variable	;"&menu-item-icon-horizontal-spacing:@underscored_name"&menu_item_icon_horizontal_spacing;
+@
+;i;:	plus;o;
+;
+@
+;i;o;	;"menu-item-icon-size;"menu_item_icon_size;
+@
+;i;;;o:Sass::Script::Funcall
+:
+@args[o;	;"menu-padding;"menu_padding;
+@
+;i;"	left;
+@
+;i:@keywords{ o;;	0;[ ;
+@
+;"/* private */;i ;i;[ o;;"menu-item-indent;[ ;0;
+@
+;i	;o;
+;
+@
+;i	;o;	;"&menu-item-text-horizontal-spacing;"&menu_item_text_horizontal_spacing;
+@
+;i	;;;o;
+;
+@
+;i	;o;	;"menu-separator-size;"menu_separator_size;
+@
+;i	;;;o;	;"menu-icon-separator-indent;"menu_icon_separator_indent;
+@
+;i	u:Sass::Tree::IfNodeT[o:Sass::Script::Operation
+:@options{ :
+@linei:@operand2o:Sass::Script::String	:
+@type:identifier;@:@value"	null;i:@operator:neq:@operand1o:Sass::Script::Variable	:
+@name"menu-border-width:@underscored_name"menu_border_width;@;i0[o:Sass::Tree::RuleNode:@children[	o:Sass::Tree::CommentNode:
+@loud0;[ ;@;"P/* if $menu-border-width is null, we will inherit body border from Panel */:@silenti ;i:@lines[ o:Sass::Tree::PropNode;["border-style;[ :@prop_syntax:new:
+@tabsi ;@;o;	;"menu-border-style;"menu_border_style;@;i;io;;["border-width;[ ;;;i ;@;o;	;"menu-border-width;"menu_border_width;@;i;io;;["border-color;[ ;;;i ;@;o;	;"menu-border-color;"menu_border_color;@;i;i;i ;@;i:@has_childrenT:
+@rule[".o;	;"prefix;"prefix;@;i"	menuo:Sass::Tree::RuleNode;[o:Sass::Tree::PropNode;["background;[ :@prop_syntax:new:
+@tabsi ;
+@
+;o;	;"menu-background-color;"menu_background_color;
+@
+;i;io;$;["padding;[ ;%;&;'i ;
+@
+;o;	;"menu-padding;"menu_padding;
+@
+;i;i;'i ;
+@
+;i:@has_childrenT:
+@rule[".o;	;"prefix;"prefix;
+@
+;i"menu-bodyo;#;[	o;$;["	left;[ ;%;&;'i ;
+@
+;o;	;"menu-icon-separator-indent;"menu_icon_separator_indent;
+@
+;i;io;$;["border-left;[ ;%;&;'i ;
+@
+;o:Sass::Script::List	:@separator:
+space;
+@
+;[o:Sass::Script::String	:
+@type:identifier;
+@
+;"
+solid;io;;[ ;["px;
+@
+;i;"1px;io;	;" menu-separator-border-color;" menu_separator_border_color;
+@
+;i;i;io;$;["background-color;[ ;%;&;'i ;
+@
+;o;	;"$menu-separator-background-color;"$menu_separator_background_color;
+@
+;i;io;$;["
+width;[ ;%;&;'i ;
+@
+;o;	;"menu-separator-size;"menu_separator_size;
+@
+;i;i;'i ;
+@
+;i;(T;)[".o;	;"prefix;"prefix;
+@
+;i"menu-icon-separatoru;"0[o:Sass::Script::Variable	:
+@name"include-rtl:@underscored_name"include_rtl:@options{ :
+@linei0[o:Sass::Tree::RuleNode:@children[o:Sass::Tree::PropNode;["	left;[ :@prop_syntax:new:
+@tabsi ;@	:@valueo:Sass::Script::String:
+@type:identifier;@	;"	auto;	i!o;;["
+right;[ ;;;i ;@	;o; 	;"menu-icon-separator-indent;"menu_icon_separator_indent;@	;	i";	i";i ;@	;	i :@has_childrenT:
+@rule[".o; 	;"prefix;"prefix;@	;	i "	rtl.o; 	;"prefix;"prefix;@	;	i "menu .o; 	;"prefix;"prefix;@	;	i "menu-icon-separatoro;#;[o;;	0;[ ;
+@
+;"E/* Inactive menu items have padding in place of the active border width.
+ * When active, they get their border added, but padding set to zero.
+ * So that there's no border occluding the Menu when an item is inactive.
+ * TODO: When we drop IE6, use transparent borders on inactive items and no padding and remove this hack. */;i ;i';[ u;"Ã[o:Sass::Script::Operation
+:@options{ :
+@linei+:@operand2o:Sass::Script::Number:@denominator_units[ :@numerator_units[ ;@:@valuei :@original"0;i+:@operator:neq:@operand1o:Sass::Script::Variable	:
+@name"menu-item-border-width:@underscored_name"menu_item_border_width;@;i+0[o:Sass::Tree::PropNode;["padding:@children[ :@prop_syntax:new:
+@tabsi ;@;o;	;"menu-item-border-width;"menu_item_border_width;@;i,;i,o;$;["cursor;[ ;%;&;'i ;
+@
+;o;	;"menu-item-cursor;"menu_item_cursor;
+@
+;i.;i.;'i ;
+@
+;i&;(T;)[".o;	;"prefix;"prefix;
+@
+;i&"menu-itemo;;	0;[ ;
+@
+;"¥/* Components used as menu items configured with "indent:true" are assigned a css class of x-menu-item-indent, unless
+ * the menu is configured with "plain: true" */;i ;i1;[ o;#;[o;$;["margin-left;[ ;%;&;'i ;
+@
+;o;	;"menu-item-indent;"menu_item_indent;
+@
+;i4;i4;'i ;
+@
+;i3;(T;)[".o;	;"prefix;"prefix;
+@
+;i3"menu-item-indentu;"ü[o:Sass::Script::Variable	:
+@name"include-rtl:@underscored_name"include_rtl:@options{ :
+@linei70[o:Sass::Tree::RuleNode:@children[o:Sass::Tree::PropNode;["margin-left;[ :@prop_syntax:new:
+@tabsi ;@	:@valueo:Sass::Script::String:
+@type:identifier;@	;"0;	i9o;;["margin-right;[ ;;;i ;@	;o; 	;"menu-item-indent;"menu_item_indent;@	;	i:;	i:;i ;@	;	i8:@has_childrenT:
+@rule[
+".o; 	;"prefix;"prefix;@	;	i8"	rtl.o; 	;"prefix;"prefix;@	;	i8"menu-item-indento;#;[o:Sass::Tree::MixinNode; [o;	;"&menu-item-active-background-color;"&menu_item_active_background_color;
+@
+;i?o;	;""menu-item-background-gradient;""menu_item_background_gradient;
+@
+;i?;"background-gradient;[ ;
+@
+;i?;!{ o;$;["border-color;[ ;%;&;'i ;
+@
+;o;	;""menu-item-active-border-color;""menu_item_active_border_color;
+@
+;i@;i@u;"à[o:Sass::Script::Operation
+:@options{ :
+@lineiA:@operand2o:Sass::Script::Number:@denominator_units[ :@numerator_units[ ;@:@valuei :@original"0;iA:@operator:neq:@operand1o:Sass::Script::Variable	:
+@name"#menu-item-active-border-radius:@underscored_name"#menu_item_active_border_radius;@;iA0[o:Sass::Tree::MixinNode:
+@args[o;	;"#menu-item-active-border-radius;"#menu_item_active_border_radius;@;iB;"border-radius:@children[ ;@;iB:@keywords{ o;;	0;[ ;
+@
+;"ð/* When active, the border takes the place of padding so that a border can appear
+ * without changing the overall size of the item.
+ * TODO: When we drop IE6, use transparent borders on inactive items and no padding and remove this hack. */;i ;iE;[ u;"d[o:Sass::Script::Operation
+:@options{ :
+@lineiH:@operand2o:Sass::Script::Number:@denominator_units[ :@numerator_units[ ;@:@valuei :@original"0;iH:@operator:neq:@operand1o:Sass::Script::Variable	:
+@name"menu-item-border-width:@underscored_name"menu_item_border_width;@;iH0[o:Sass::Tree::PropNode;["border-width:@children[ :@prop_syntax:new:
+@tabsi ;@;o;	;"menu-item-border-width;"menu_item_border_width;@;iI;iIo;;["border-style;[ ;;;i ;@;o:Sass::Script::String:
+@type:identifier;@;"
+solid;iJo;;["padding;[ ;;;i ;@;o;;;;@;"0;iKo;;	0;[ ;
+@
+;"%/* Background linear gradient */;i ;iN;[ u;"¾[o:Sass::Script::Operation
+:@options{ :
+@lineiO:@operand2o:Sass::Script::Variable	:
+@name"compile-all:@underscored_name"compile_all;@;iO:@operator:or:@operand1o:!Sass::Script::UnaryOperation	;@;iO;:not:@operando;		;
+"supports-gradients;"supports_gradients;@;iO0[o:Sass::Tree::RuleNode:@children[o:Sass::Tree::PropNode;
+["background;[ :@prop_syntax:new:
+@tabsi ;@:@valueo:Sass::Script::List	:@separator:
+space;@;[	o;		;
+"&menu-item-active-background-color;"&menu_item_active_background_color;@;iQo:Sass::Script::String	:
+@type:identifier;@;"repeat-x;iQo;	;;;@;"	left;iQo;	;;;@;"top;iQ;iQ;iQo;;
+["background-image;[ ;;;i ;@;o:Sass::Script::Funcall
+:
+@args[o;	;;;@;"menu-item-link;iRo;	;:string;@;"menu/menu-item-active-bg;iR;
+"slicer-background-image;@;iR:@keywords{ ;iR;i ;@;iP:@has_childrenT:
+@rule[".o;		;
+"prefix;"prefix;@;iP"
+nlg &;'i ;
+@
+;i>;(T;)[".o;	;"prefix;"prefix;
+@
+;i>"menu-item-activeo;#;[	o;$;["line-height;[ ;%;&;'i ;
+@
+;o;
+;
+@
+;iX;o;
+; [o;	;"menu-item-border-width;"menu_item_border_width;
+@
+;iX;"vertical;
+@
+;iX;!{ ;:
+minus;o;	;"menu-item-height;"menu_item_height;
+@
+;iX;iXo;$;["padding;[ ;%;&;'i ;
+@
+;o;*	;+;,;
+@
+;[	o;;@;[ ;
+@
+;i ;"0;iYo;	;"menu-item-trailing-padding;"menu_item_trailing_padding;
+@
+;iYo;;@;[ ;
+@
+;i ;"0;iYo;	;"menu-item-indent;"menu_item_indent;
+@
+;iY;iY;iYo;;	0;[ ;
+@
+;"]/* Otherwise, multi line menu items wrap into the padding area (icon space) in Webkit */;i ;i[;[ o;$;["display;[ ;%;&;'i ;
+@
+;o;-;.;/;
+@
+;"inline-block;i\;'i ;
+@
+;iW;(T;)[".o;	;"prefix;"prefix;
+@
+;iW"menu-item-linku;"Œ[o:Sass::Script::Variable	:
+@name"include-rtl:@underscored_name"include_rtl:@options{ :
+@linei_0[o:Sass::Tree::RuleNode:@children[o:Sass::Tree::PropNode;["padding;[ :@prop_syntax:new:
+@tabsi ;@	:@valueo:Sass::Script::List	:@separator:
+space;@	;[	o:Sass::Script::Number:@denominator_units[ :@numerator_units[ ;@	;i :@original"0;	iao; 	;"menu-item-indent;"menu_item_indent;@	;	iao;;@;[ ;@	;i ;"0;	iao; 	;"menu-item-trailing-padding;"menu_item_trailing_padding;@	;	ia;	ia;	ia;i ;@	;	i`:@has_childrenT:
+@rule[
+".o; 	;"prefix;"prefix;@	;	i`"	rtl.o; 	;"prefix;"prefix;@	;	i`"menu-item-linko;;	0;[ ;
+@
+;"Š/* Menu check items need padding at end to accommodate checkbox.
+ * Class is always x-right-check-item-text where "right" means "after" */;i ;ie;[ o;#;[o;$;["padding-right;[ ;%;&;'i ;
+@
+;o;	;"menu-check-item-padding;"menu_check_item_padding;
+@
+;ih;ih;'i ;
+@
+;ig;(T;)[".o;	;"prefix;"prefix;
+@
+;ig"right-check-item-textu;"[o:Sass::Script::Variable	:
+@name"include-rtl:@underscored_name"include_rtl:@options{ :
+@lineij0[o:Sass::Tree::RuleNode:@children[o:Sass::Tree::PropNode;["padding-left;[ :@prop_syntax:new:
+@tabsi ;@	:@valueo; 	;"menu-check-item-padding;"menu_check_item_padding;@	;	il;	ilo;;["padding-right;[ ;;;i ;@	;o:Sass::Script::String:
+@type:identifier;@	;"0;	im;i ;@	;	ik:@has_childrenT:
+@rule[
+".o; 	;"prefix;"prefix;@	;	ik"	rtl.o; 	;"prefix;"prefix;@	;	ik"right-check-item-texto;#;[
+o;$;["
+width;[ ;%;&;'i ;
+@
+;o;	;"menu-item-icon-size;"menu_item_icon_size;
+@
+;ir;iro;$;["height;[ ;%;&;'i ;
+@
+;o;	;"menu-item-icon-size;"menu_item_icon_size;
+@
+;is;iso;$;["top;[ ;%;&;'i ;
+@
+;o;	;"menu-item-icon-top;"menu_item_icon_top;
+@
+;it;ito;$;["	left;[ ;%;&;'i ;
+@
+;o;	;"&menu-item-icon-horizontal-spacing;"&menu_item_icon_horizontal_spacing;
+@
+;iu;iuo;$;["background-position;[ ;%;&;'i ;
+@
+;o;	;"'menu-item-icon-background-position;"'menu_item_icon_background_position;
+@
+;iv;iv;'i ;
+@
+;iq;(T;)[".o;	;"prefix;"prefix;
+@
+;iq"menu-item-icono;#;[o;$;["font-size;[ ;%;&;'i ;
+@
+;o;	;"menu-item-icon-size;"menu_item_icon_size;
+@
+;iz;izo;$;["line-height;[ ;%;&;'i ;
+@
+;o;	;"menu-item-icon-size;"menu_item_icon_size;
+@
+;i{;i{o;$;["
+color;[ ;%;&;'i ;
+@
+;o;	;"menu-glyph-color;"menu_glyph_color;
+@
+;i|;i|u;"Ô[o:Sass::Script::Operation
+:@options{ :
+@linei~:@operand2o:Sass::Script::Number:@denominator_units[ :@numerator_units[ ;@:@valuei:@original"1;i~:@operator:neq:@operand1o:Sass::Script::Variable	:
+@name"menu-glyph-opacity:@underscored_name"menu_glyph_opacity;@;i~0[o:Sass::Tree::CommentNode:
+@loud0:@children[ ;@;"Ö/* do not use the opacity mixin because we do not want IE's filter version of
+ * opacity to be included.  We emulate the opacity setting in IE8m by mixing
+ * the icon color into the background color. (see below) */:@silenti ;i:@lines[ o:Sass::Tree::PropNode;["opacity;[ :@prop_syntax:new:
+@tabsi ;@;o;	;"menu-glyph-opacity;"menu_glyph_opacity;@;i};i}o;;	0;[ ;
+@
+;"†/* In IE8 and below when a glyph contains partially transparent pixels, we 
+ * can't apply an opacity filter to the glyph element, because IE8m will render
+ * the partially transparent pixels of the glyph as black. To work around this,
+ * we emulate the approximate color that the glyph would have if it had opacity
+ * applied by mixing the glyph color with the menus's background-color. */;i ;i;[ o;#;[o;$;["
+color;[ ;%;&;'i ;
+@
+;o;
+; [o;	;"menu-glyph-color;"menu_glyph_color;
+@
+;i…o;	;"menu-background-color;"menu_background_color;
+@
+;i…o;
+;
+@
+;i…;o;;@;[ ;
+@
+;ii;"100;i…;;;o;	;"menu-glyph-opacity;"menu_glyph_opacity;
+@
+;i…;"mix;
+@
+;i…;!{ ;i…;'i ;
+@
+;i„;(T;)[".o;	;"prefix;"prefix;
+@
+;i„"ie8m &;'i ;
+@
+;iy;(T;)[".o;	;"prefix;"prefix;
+@
+;iy"menu-item-glypho;;	0;[ ;
+@
+;"É/* Stop the addition of bordering to active items shifting the menu icon in bad IEs (and FF)
+ * TODO: When we drop IE6, use transparent borders on inactive items and no padding and remove this hack. */;i ;i‰;[ u;"ì[o:Sass::Script::Operation
+:@options{ :
+@linei‹:@operand2o:Sass::Script::Number:@denominator_units[ :@numerator_units[ ;@:@valuei :@original"0;i‹:@operator:neq:@operand1o:Sass::Script::Variable	:
+@name"menu-item-border-width:@underscored_name"menu_item_border_width;@;i‹0[o:Sass::Tree::RuleNode:@children[o:Sass::Tree::PropNode;["top;[ :@prop_syntax:new:
+@tabsi ;@;o; 
+;@;i;o;	;"menu-item-border-width;"menu_item_border_width;@;i;:
+minus;o;	;"menu-item-icon-top;"menu_item_icon_top;@;i;io;;["	left;[ ;;;i ;@;o; 
+;@;i;o;	;"menu-item-border-width;"menu_item_border_width;@;i;;;o;	;"&menu-item-icon-horizontal-spacing;"&menu_item_icon_horizontal_spacing;@;i;i;i ;@;iŽ:@has_childrenT:
+@rule[".o;	;"prefix;"prefix;@;iŒ"gecko .o;	;"prefix;"prefix;@;iŒ"menu-item-active .o;	;"prefix;"prefix;@;iŒ"menu-item-icon,
+    .o;	;"prefix;"prefix;@;i"quirks .o;	;"prefix;"prefix;@;i"menu-item-active .o;	;"prefix;"prefix;@;i"menu-item-icon,
+    .o;	;"prefix;"prefix;@;iŽ"ie9m .o;	;"prefix;"prefix;@;iŽ"menu-item-active .o;	;"prefix;"prefix;@;iŽ"menu-item-iconu;"V[o:Sass::Script::Variable	:
+@name"include-rtl:@underscored_name"include_rtl:@options{ :
+@linei”0[o:Sass::Tree::RuleNode:@children[o:Sass::Tree::PropNode;["	left;[ :@prop_syntax:new:
+@tabsi ;@	:@valueo:Sass::Script::String:
+@type:identifier;@	;"	auto;	i–o;;["
+right;[ ;;;i ;@	;o; 	;"&menu-item-icon-horizontal-spacing;"&menu_item_icon_horizontal_spacing;@	;	i—;	i—;i ;@	;	i•:@has_childrenT:
+@rule[
+".o; 	;"prefix;"prefix;@	;	i•"	rtl.o; 	;"prefix;"prefix;@	;	i•"menu-item-icono:Sass::Tree::CommentNode:
+@loud0;[ ;@	;"É/* Stop the addition of bordering to active items shifting the menu icon in bad IEs (and FF)
+ * TODO: When we drop IE6, use transparent borders on inactive items and no padding and remove this hack. */:@silenti ;	iš:@lines[ u:Sass::Tree::IfNode[o:Sass::Script::Operation
+:@options{ :
+@lineiœ:@operand2o:Sass::Script::Number:@denominator_units[ :@numerator_units[ ;@:@valuei :@original"0;iœ:@operator:neq:@operand1o:Sass::Script::Variable	:
+@name"menu-item-border-width:@underscored_name"menu_item_border_width;@;iœ0[o:Sass::Tree::RuleNode:@children[o:Sass::Tree::PropNode;["	left;[ :@prop_syntax:new:
+@tabsi ;@;o:Sass::Script::String:
+@type:identifier;@;"	auto;i o;;["
+right;[ ;;;i ;@;o; 
+;@;i¡;o;	;"menu-item-border-width;"menu_item_border_width;@;i¡;:
+minus;o;	;"&menu-item-icon-horizontal-spacing;"&menu_item_icon_horizontal_spacing;@;i¡;i¡;i ;@;iŸ:@has_childrenT:
+@rule[".o;	;"prefix;"prefix;@;i"gecko .o;	;"prefix;"prefix;@;i"menu-item-active .o;	;"prefix;"prefix;@;i"	rtl.o;	;"prefix;"prefix;@;i"menu-item-icon,
+        .o;	;"prefix;"prefix;@;iž"quirks .o;	;"prefix;"prefix;@;iž"menu-item-active .o;	;"prefix;"prefix;@;iž"	rtl.o;	;"prefix;"prefix;@;iž"menu-item-icon,
+        .o;	;"prefix;"prefix;@;iŸ"ie9m .o;	;"prefix;"prefix;@;iŸ"menu-item-active .o;	;"prefix;"prefix;@;iŸ"	rtl.o;	;"prefix;"prefix;@;iŸ"menu-item-icono;;	0;[ ;
+@
+;"Ñ/* For when an icon needs to be used in the right position where a submenu arrow usually goes.
+ * eg: When a CheckItem needs an icon. The left icon position is a checkbox, so the icon is moved to the right. */;i ;i¦;[ o;#;[
+o;$;["
+width;[ ;%;&;'i ;
+@
+;o;	;"menu-item-icon-size;"menu_item_icon_size;
+@
+;i©;i©o;$;["height;[ ;%;&;'i ;
+@
+;o;	;"menu-item-icon-size;"menu_item_icon_size;
+@
+;iª;iªo;$;["top;[ ;%;&;'i ;
+@
+;o;
+; [o;
+;
+@
+;i«;o;;@;[ ;
+@
+;i;"2;i«;:div;o;
+;
+@
+;i«;o;	;"menu-item-icon-size;"menu_item_icon_size;
+@
+;i«;;1;o;
+;
+@
+;i«;o;
+; [o;	;"menu-item-border-width;"menu_item_border_width;
+@
+;i«;"vertical;
+@
+;i«;!{ ;;1;o;	;"menu-item-height;"menu_item_height;
+@
+;i«;"
+round;
+@
+;i«;!{ ;i«o;$;["
+right;[ ;%;&;'i ;
+@
+;o;	;"&menu-item-icon-horizontal-spacing;"&menu_item_icon_horizontal_spacing;
+@
+;i¬;i¬o;$;["background-position;[ ;%;&;'i ;
+@
+;o;	;"'menu-item-icon-background-position;"'menu_item_icon_background_position;
+@
+;i­;i­;'i ;
+@
+;i¨;(T;)[".o;	;"prefix;"prefix;
+@
+;i¨"menu-item-icon-rightu;"[o:Sass::Script::Variable	:
+@name"include-rtl:@underscored_name"include_rtl:@options{ :
+@linei°0[o:Sass::Tree::RuleNode:@children[o:Sass::Tree::PropNode;["
+right;[ :@prop_syntax:new:
+@tabsi ;@	:@valueo:Sass::Script::String:
+@type:identifier;@	;"	auto;	i²o;;["	left;[ ;;;i ;@	;o; 	;"&menu-item-icon-horizontal-spacing;"&menu_item_icon_horizontal_spacing;@	;	i³;	i³;i ;@	;	i±:@has_childrenT:
+@rule[
+".o; 	;"prefix;"prefix;@	;	i±"	rtl.o; 	;"prefix;"prefix;@	;	i±"menu-item-icon-righto;#;[o;$;["font-size;[ ;%;&;'i ;
+@
+;o;	;"menu-item-font-size;"menu_item_font_size;
+@
+;i¸;i¸o;$;["
+color;[ ;%;&;'i ;
+@
+;o;	;"menu-text-color;"menu_text_color;
+@
+;i¹;i¹o;$;["cursor;[ ;%;&;'i ;
+@
+;o;	;"menu-item-cursor;"menu_item_cursor;
+@
+;iº;iºo;;	0;[ ;
+@
+;"B/* needed to override cursor:default set by x-unselectable */;i ;iº;[ o;$;["margin-right;[ ;%;&;'i ;
+@
+;o;
+;
+@
+;i»;o;;@;[ ;
+@
+;i	;"4;i»;;;o;	;"menu-item-arrow-width;"menu_item_arrow_width;
+@
+;i»;i»o;;	0;[ ;
+@
+;"*/* Leave space for a submenu arrow */;i ;i»;[ ;'i ;
+@
+;i·;(T;)[".o;	;"prefix;"prefix;
+@
+;i·"menu-item-texto;;	0;[ ;
+@
+;"]/* If inside a menu link item with RTL, switch the margin space for the submenu arrow */;i ;i¾;[ u;"Ò[o:Sass::Script::Variable	:
+@name"include-rtl:@underscored_name"include_rtl:@options{ :
+@linei¿0[o:Sass::Tree::RuleNode:@children[o;
+;[o:Sass::Tree::PropNode;["margin-right;[ :@prop_syntax:new:
+@tabsi ;@	:@valueo:Sass::Script::String:
+@type:identifier;@	;"0;	iÂo;;["margin-left;[ ;;;i ;@	;o:Sass::Script::Operation
+;@	;	iÃ:@operand2o:Sass::Script::Number:@denominator_units[ :@numerator_units[ ;@	;i	:@original"4;	iÃ:@operator:	plus:@operand1o; 	;"menu-item-arrow-width;"menu_item_arrow_width;@	;	iÃ;	iÃ;i ;@	;	iÁ:@has_childrenT:
+@rule[".o; 	;"prefix;"prefix;@	;	iÁ"menu-item-text;i ;@	;	iÀ;T;["a.o; 	;"prefix;"prefix;@	;	iÀ"rtlo;#;[o;#;[o;$;["background-image;[ ;%;&;'i ;
+@
+;o;
+; [o;-	;.:string;
+@
+;"menu/checked;iÊ;"theme-background-image;
+@
+;iÊ;!{ ;iÊ;'i ;
+@
+;iÉ;(T;)[
+".o;	;"prefix;"prefix;
+@
+;iÉ"menu-item-icon, .o;	;"prefix;"prefix;
+@
+;iÉ"menu-item-icon-righto;#;[o;$;["background-image;[ ;%;&;'i ;
+@
+;o;
+; [o;-	;.;3;
+@
+;"menu/group-checked;iÍ;"theme-background-image;
+@
+;iÍ;!{ ;iÍ;'i ;
+@
+;iÌ;(T;)[".o;	;"prefix;"prefix;
+@
+;iÌ"menu-group-icon;'i ;
+@
+;iÈ;(T;)[".o;	;"prefix;"prefix;
+@
+;iÈ"menu-item-checkedo;#;[o;#;[o;$;["background-image;[ ;%;&;'i ;
+@
+;o;
+; [o;-	;.;3;
+@
+;"menu/unchecked;iÓ;"theme-background-image;
+@
+;iÓ;!{ ;iÓ;'i ;
+@
+;iÒ;(T;)[
+".o;	;"prefix;"prefix;
+@
+;iÒ"menu-item-icon, .o;	;"prefix;"prefix;
+@
+;iÒ"menu-item-icon-righto;#;[o;$;["background-image;[ ;%;&;'i ;
+@
+;o;-;.;/;
+@
+;"	none;iÖ;'i ;
+@
+;iÕ;(T;)[".o;	;"prefix;"prefix;
+@
+;iÕ"menu-group-icon;'i ;
+@
+;iÑ;(T;)[".o;	;"prefix;"prefix;
+@
+;iÑ"menu-item-uncheckedo;#;[
+o;$;["height;[ ;%;&;'i ;
+@
+;o;	;"menu-separator-size;"menu_separator_size;
+@
+;iÛ;iÛo;$;["border-top;[ ;%;&;'i ;
+@
+;o;*	;+;,;
+@
+;[o;-	;.;/;
+@
+;"
+solid;iÜo;;[ ;["px;
+@
+;i;"1px;iÜo;	;" menu-separator-border-color;" menu_separator_border_color;
+@
+;iÜ;iÜ;iÜo;$;["background-color;[ ;%;&;'i ;
+@
+;o;	;"$menu-separator-background-color;"$menu_separator_background_color;
+@
+;iÝ;iÝo;$;["margin;[ ;%;&;'i ;
+@
+;o;	;"menu-item-separator-margin;"menu_item_separator_margin;
+@
+;iÞ;iÞo;$;["padding;[ ;%;&;'i ;
+@
+;o;-;.;/;
+@
+;"0;iß;'i ;
+@
+;iÚ;(T;)[".o;	;"prefix;"prefix;
+@
+;iÚ"menu-item-separatoro;#;[
+o;$;["
+width;[ ;%;&;'i ;
+@
+;o;	;"menu-item-arrow-width;"menu_item_arrow_width;
+@
+;iã;ião;$;["height;[ ;%;&;'i ;
+@
+;o;	;"menu-item-arrow-height;"menu_item_arrow_height;
+@
+;iä;iäo;$;["top;[ ;%;&;'i ;
+@
+;o;	;"menu-item-arrow-top;"menu_item_arrow_top;
+@
+;iå;iåo;$;["
+right;[ ;%;&;'i ;
+@
+;o;	;"'menu-item-arrow-horizontal-spacing;"'menu_item_arrow_horizontal_spacing;
+@
+;iæ;iæo;$;["background-image;[ ;%;&;'i ;
+@
+;o;
+; [o;-	;.;3;
+@
+;"menu/menu-parent;iç;"theme-background-image;
+@
+;iç;!{ ;iç;'i ;
+@
+;iâ;(T;)[".o;	;"prefix;"prefix;
+@
+;iâ"menu-item-arrowo;;	0;[ ;
+@
+;"Å/* Stop the addition of bordering to active items shifting the arrow in bad IEs (and FF)
+ * TODO: When we drop IE6, use transparent borders on inactive items and no padding and remove this hack. */;i ;iê;[ u;"ô[o:Sass::Script::Operation
+:@options{ :
+@lineiì:@operand2o:Sass::Script::Number:@denominator_units[ :@numerator_units[ ;@:@valuei :@original"0;iì:@operator:neq:@operand1o:Sass::Script::Variable	:
+@name"menu-item-border-width:@underscored_name"menu_item_border_width;@;iì0[o:Sass::Tree::RuleNode:@children[o:Sass::Tree::PropNode;["top;[ :@prop_syntax:new:
+@tabsi ;@;o; 
+;@;ið;o;	;"menu-item-border-width;"menu_item_border_width;@;ið;:
+minus;o;	;"menu-item-arrow-top;"menu_item_arrow_top;@;ið;iðo;;["
+right;[ ;;;i ;@;o; 
+;@;iñ;o;	;"menu-item-border-width;"menu_item_border_width;@;iñ;;;o;	;"'menu-item-arrow-horizontal-spacing;"'menu_item_arrow_horizontal_spacing;@;iñ;iñ;i ;@;iï:@has_childrenT:
+@rule[".o;	;"prefix;"prefix;@;ií"gecko .o;	;"prefix;"prefix;@;ií"menu-item-active .o;	;"prefix;"prefix;@;ií"menu-item-arrow,
+    .o;	;"prefix;"prefix;@;iî"quirks .o;	;"prefix;"prefix;@;iî"menu-item-active .o;	;"prefix;"prefix;@;iî"menu-item-arrow,
+    .o;	;"prefix;"prefix;@;iï"ie9m .o;	;"prefix;"prefix;@;iï"menu-item-active .o;	;"prefix;"prefix;@;iï"menu-item-arrowu;"	[o:Sass::Script::Variable	:
+@name"include-rtl:@underscored_name"include_rtl:@options{ :
+@lineiõ0[o:Sass::Tree::RuleNode:@children[o:Sass::Tree::PropNode;["	left;[ :@prop_syntax:new:
+@tabsi ;@	:@valueo; 	;"'menu-item-arrow-horizontal-spacing;"'menu_item_arrow_horizontal_spacing;@	;	i÷;	i÷o;;["
+right;[ ;;;i ;@	;o:Sass::Script::String:
+@type:identifier;@	;"	auto;	iøo;;["background-image;[ ;;;i ;@	;o:Sass::Script::Funcall
+:
+@args[o;	;:string;@	;"menu/menu-parent-left;	iù;"theme-background-image;@	;	iù:@keywords{ ;	iù;i ;@	;	iö:@has_childrenT:
+@rule[
+".o; 	;"prefix;"prefix;@	;	iö"	rtl.o; 	;"prefix;"prefix;@	;	iö"menu-item-arrowo:Sass::Tree::CommentNode:
+@loud0;[ ;@	;"Å/* Stop the addition of bordering to active items shifting the arrow in bad IEs (and FF)
+ * TODO: When we drop IE6, use transparent borders on inactive items and no padding and remove this hack. */:@silenti ;	iü:@lines[ u:Sass::Tree::IfNode&[o:Sass::Script::Operation
+:@options{ :
+@lineiþ:@operand2o:Sass::Script::Number:@denominator_units[ :@numerator_units[ ;@:@valuei :@original"0;iþ:@operator:neq:@operand1o:Sass::Script::Variable	:
+@name"menu-item-border-width:@underscored_name"menu_item_border_width;@;iþ0[o:Sass::Tree::RuleNode:@children[o:Sass::Tree::PropNode;["
+right;[ :@prop_syntax:new:
+@tabsi ;@;o:Sass::Script::String:
+@type:identifier;@;"	auto;io;;["	left;[ ;;;i ;@;o; 
+;@;i;o;	;"menu-item-border-width;"menu_item_border_width;@;i;:
+minus;o;	;"'menu-item-arrow-horizontal-spacing;"'menu_item_arrow_horizontal_spacing;@;i;i;i ;@;i:@has_childrenT:
+@rule[".o;	;"prefix;"prefix;@;iÿ"gecko .o;	;"prefix;"prefix;@;iÿ"menu-item-active .o;	;"prefix;"prefix;@;iÿ"	rtl.o;	;"prefix;"prefix;@;iÿ"menu-item-arrow,
+        .o;	;"prefix;"prefix;@;i "ie9m .o;	;"prefix;"prefix;@;i "menu-item-active .o;	;"prefix;"prefix;@;i "	rtl.o;	;"prefix;"prefix;@;i "menu-item-arrow,
+        .o;	;"prefix;"prefix;@;i"quirks .o;	;"prefix;"prefix;@;i"menu-item-active .o;	;"prefix;"prefix;@;i"	rtl.o;	;"prefix;"prefix;@;i"menu-item-arrowo;#;[o;0; [o;	;"menu-item-disabled-opacity;"menu_item_disabled_opacity;
+@
+;i	;"opacity;[ ;
+@
+;i	;!{ ;'i ;
+@
+;i;(T;)[".o;	;"prefix;"prefix;
+@
+;i"menu-item-disabledu;"2[o:Sass::Script::Variable	:
+@name"include-content-box:@underscored_name"include_content_box:@options{ :
+@linei0[o:Sass::Tree::RuleNode:@children[o;
+;[o:Sass::Tree::PropNode;["
+width;[ :@prop_syntax:new:
+@tabsi ;@	:@valueo:Sass::Script::Operation
+;@	;	i:@operand2o:Sass::Script::Number:@denominator_units[ :@numerator_units[ ;@	;i:@original"1;	i:@operator:
+minus:@operand1o; 	;"menu-separator-size;"menu_separator_size;@	;	i;	i;i ;@	;	i:@has_childrenT:
+@rule[".o; 	;"prefix;"prefix;@	;	i"menu-icon-separatoro;
+;[o;;["height;[ ;;;i ;@	;o;
+;@	;	i;o;;@;[ ;@	;i;"1;	i;;;o; 	;"menu-separator-size;"menu_separator_size;@	;	i;	i;i ;@	;	i;T;[".o; 	;"prefix;"prefix;@	;	i"menu-item-separator;i ;@	;	i;T;[".o; 	;"prefix;"prefix;@	;	i"content-boxo;
+;[o;
+;[o;
+;[o:Sass::Tree::MixinNode:
+@args[o; 	;"menu-item-disabled-opacity;"menu_item_disabled_opacity;@	;	i;"opacity;[ ;@	;	i:@keywords{ ;i ;@	;	i;T;[".o; 	;"prefix;"prefix;@	;	i"menu-item-icono;
+;[o:Sass::Tree::CommentNode:
+@loud0;[ ;@	;"./* IE opacity/cleartype bug workaround */:@silenti ;	i:@lines[ o;;["background-color;[ ;;;i ;@	;o:Sass::Script::String:
+@type:identifier;@	;"transparent;	i;i ;@	;	i;T;[".o; 	;"prefix;"prefix;@	;	i"menu-item-text;i ;@	;	i;T;[".o; 	;"prefix;"prefix;@	;	i"menu-item-disabled;i ;@	;	i;T;[".o; 	;"prefix;"prefix;@	;	i"ieo;;	0;[ ;
+@
+;""/* TODO: what is this for? */;i ;i%;[ o;#;[o;$;["border-color;[ ;%;&;'i ;
+@
+;o;-;.;/;
+@
+;"#99BBE8;i';'i ;
+@
+;i&;(T;)[".o;	;"prefix;"prefix;
+@
+;i&"menu-date-itemu;"œ[o:Sass::Script::Variable	:
+@name"include-ext-form-labelable:@underscored_name"include_ext_form_labelable:@options{ :
+@linei*0[o:Sass::Tree::CommentNode:
+@loud0:@children[ ;@	:@value",/* When Fields are added to Menus... */:@silenti ;	i+:@lines[ o:Sass::Tree::RuleNode;[o:Sass::Tree::PropNode;["font-size;[ :@prop_syntax:new:
+@tabsi ;@	;o; 	;"menu-item-font-size;"menu_item_font_size;@	;	i-;	i-o;;["
+color;[ ;;;i ;@	;o; 	;"menu-text-color;"menu_text_color;@	;	i.;	i.;i ;@	;	i,:@has_childrenT:
+@rule[
+".o; 	;"prefix;"prefix;@	;	i,"menu-item .o; 	;"prefix;"prefix;@	;	i,"form-item-labelo;#;[o;$;["height;[ ;%;&;'i ;
+@
+;o;	;"menu-scroller-height;"menu_scroller_height;
+@
+;i3;i3o;$;["background-image;[ ;%;&;'i ;
+@
+;o;
+; [o;-	;.;3;
+@
+;"menu/scroll-top;i4;"theme-background-image;
+@
+;i4;!{ ;i4;'i ;
+@
+;i2;(T;)[".o;	;"prefix;"prefix;
+@
+;i2"menu-scroll-topo;#;[o;$;["height;[ ;%;&;'i ;
+@
+;o;	;"menu-scroller-height;"menu_scroller_height;
+@
+;i7;i7o;$;["background-image;[ ;%;&;'i ;
+@
+;o;
+; [o;-	;.;3;
+@
+;"menu/scroll-bottom;i8;"theme-background-image;
+@
+;i8;!{ ;i8;'i ;
+@
+;i6;(T;)[".o;	;"prefix;"prefix;
+@
+;i6"menu-scroll-bottomo;#;[u;"À[o:Sass::Script::Operation
+:@options{ :
+@linei=:@operand2o:Sass::Script::Number:@denominator_units[ :@numerator_units[ ;@:@valuei:@original"1;i=:@operator:neq:@operand1o:Sass::Script::Variable	:
+@name"menu-scroller-opacity:@underscored_name"menu_scroller_opacity;@;i=0[o:Sass::Tree::MixinNode:
+@args[o;	;"menu-scroller-opacity;"menu_scroller_opacity;@;i>;"opacity:@children[ ;@;i>:@keywords{ u;"6[o:Sass::Script::List	:@separator:
+space:@options{ :@value[o:Sass::Script::Operation
+;@:
+@linei@:@operand2o:Sass::Script::Number:@denominator_units[ :@numerator_units[ ;@;	i:@original"1;i@:@operator:neq:@operand1o:Sass::Script::Variable	:
+@name"menu-scroller-opacity:@underscored_name"menu_scroller_opacity;@;i@o;
+
+;@;i@;o;;@;[ ;@;	i;"1;i@;;;o;	;"menu-scroller-opacity-over;"menu_scroller_opacity_over;@;i@o;
+
+;@;i@;o;;@;[ ;@;	i;"1;i@;;;o;	;""menu-scroller-opacity-pressed;""menu_scroller_opacity_pressed;@;i@;i@0[o:Sass::Tree::CommentNode:
+@loud0:@children[ ;@;	"Þ/* EXTJSIV-8846: partially transparent png images do not display correctly
+ * in winXP/IE8m when the image element has a transparent background.
+ * to fix this, we give the element the same background-color as the menu. */:@silenti ;iA:@lines[ o:Sass::Tree::PropNode;["background-color;[ :@prop_syntax:new:
+@tabsi ;@;	o;	;"menu-background-color;"menu_background_color;@;iD;iD;'i ;
+@
+;i<;(T;)[
+".o;	;"prefix;"prefix;
+@
+;i<"menu-scroll-top, .o;	;"prefix;"prefix;
+@
+;i<"menu-scroll-bottomu;"$[o:Sass::Script::Operation
+:@options{ :
+@lineiH:@operand2o; 
+;@;iH;o:Sass::Script::Number:@denominator_units[ :@numerator_units[ ;@:@valuei:@original"1;iH:@operator:neq:@operand1o:Sass::Script::Variable	:
+@name"menu-scroller-opacity:@underscored_name"menu_scroller_opacity;@;iH;:or;o; 
+;@;iH;o;	;
+@
+;[ ;@;i;"1;iH;;;o;	;"menu-scroller-opacity-over;"menu_scroller_opacity_over;@;iH0[o:Sass::Tree::RuleNode:@children[o:Sass::Tree::MixinNode:
+@args[o;	;"menu-scroller-opacity-over;"menu_scroller_opacity_over;@;iJ;"opacity;[ ;@;iJ:@keywords{ :
+@tabsi ;@;iI:@has_childrenT:
+@rule[
+".o;	;"prefix;"prefix;@;iI"menu-scroll-top-hover, .o;	;"prefix;"prefix;@;iI"menu-scroll-bottom-hoveru;"4[o:Sass::Script::Operation
+:@options{ :
+@lineiN:@operand2o; 
+;@;iN;o:Sass::Script::Number:@denominator_units[ :@numerator_units[ ;@:@valuei:@original"1;iN:@operator:neq:@operand1o:Sass::Script::Variable	:
+@name"menu-scroller-opacity:@underscored_name"menu_scroller_opacity;@;iN;:or;o; 
+;@;iN;o;	;
+@
+;[ ;@;i;"1;iN;;;o;	;""menu-scroller-opacity-pressed;""menu_scroller_opacity_pressed;@;iN0[o:Sass::Tree::RuleNode:@children[o:Sass::Tree::MixinNode:
+@args[o;	;""menu-scroller-opacity-pressed;""menu_scroller_opacity_pressed;@;iP;"opacity;[ ;@;iP:@keywords{ :
+@tabsi ;@;iO:@has_childrenT:
+@rule[
+".o;	;"prefix;"prefix;@;iO"menu-scroll-top-pressed, .o;	;"prefix;"prefix;@;iO"menu-scroll-bottom-pressedo;0; [o;-	;.;/;
+@
+;"menu-item-link;iT;"x-slicer;[ ;
+@
+;iT;!{ ;
+@
+;i;(T

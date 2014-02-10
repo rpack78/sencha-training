@@ -1,0 +1,171 @@
+{
+    "type": "Ext.app.Controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Main",
+        "latLng": [
+            "null"
+        ],
+        "rainy": [
+            "null"
+        ],
+        "requires": [
+            "Umbrella.util.Geocode",
+            "Umbrella.util.Rainy"
+        ]
+    },
+    "configAlternates": {
+        "rainy": "object",
+        "latLng": "object"
+    },
+    "designerId": "22c5c674-5d8b-4443-870e-16e5e9db2fd6",
+    "customConfigs": [
+        {
+            "group": "(Custom Properties)",
+            "name": "rainy",
+            "type": "string"
+        },
+        {
+            "group": "(Custom Properties)",
+            "name": "latLng",
+            "type": "string"
+        }
+    ],
+    "cn": [
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "umbrella",
+                "selector": "umbrella"
+            },
+            "designerId": "0aa3e8ab-ee63-4ca1-8622-dc914c9909f9"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "rainy"
+                ],
+                "fn": "updateRainy",
+                "implHandler": [
+                    "this.getUmbrella().setRainy(rainy);\r",
+                    "this.getLocation().setRainy(rainy);"
+                ]
+            },
+            "designerId": "9b83d476-a846-4611-ad79-1c5cfb1b0339"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "latLng"
+                ],
+                "fn": "updateLatLng",
+                "implHandler": [
+                    "var me = this;\r",
+                    "Umbrella.util.Rainy.check(latLng, function(rainy){\r",
+                    "  me.setRainy(rainy);\r",
+                    "});\r",
+                    ""
+                ]
+            },
+            "designerId": "8f44aa54-d90e-49d6-89dc-4cfae598ae5d"
+        },
+        {
+            "type": "fixedfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "application"
+                ],
+                "fn": "init",
+                "implHandler": [
+                    "var me = this;\r",
+                    "\r",
+                    "// If it's not raining in your location use a hard-coded city where it is raining.\r",
+                    "Umbrella.util.Geocode.calculateLatLng('San Juan Chamelco, Guatemala', function(latLng){\r",
+                    "    me.setLatLng(latLng);\r",
+                    "});\r",
+                    ""
+                ]
+            },
+            "designerId": "56bfa428-c073-48a5-930b-a9e5a032da9a"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "latLng"
+                ],
+                "fn": "applyLatLng",
+                "implHandler": [
+                    "// Only use the latLng if it's non-null, and if it's changing\r",
+                    "if (latLng && !latLng.equals(this.getLatLng())){\r",
+                    "    return latLng;\r",
+                    "}\r",
+                    ""
+                ]
+            },
+            "designerId": "aceed0ee-556f-4d69-879c-3dc50ab2fbbb"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "location",
+                "selector": "location"
+            },
+            "designerId": "a60b8575-be06-44cb-b304-90a99db55897"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "formpanel",
+                "designer|targetType": "Location",
+                "fn": "onFormpanelRainyChange",
+                "implHandler": [
+                    "this.setRainy(rainy);"
+                ],
+                "name": "rainychange"
+            },
+            "designerId": "e68e8004-37fc-499c-9a9f-e9886382c736"
+        }
+    ]
+}

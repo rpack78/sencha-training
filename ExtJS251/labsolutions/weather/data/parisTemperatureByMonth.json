@@ -1,0 +1,61 @@
+[ {
+    monthOrdinal : 1,
+    high : 6,
+    low : 1,
+    precipitation: 45
+}, {
+    monthOrdinal : 2,
+    high : 7,
+    low : 1,
+    precipitation: 38
+}, {
+    monthOrdinal : 3,
+    high : 11,
+    low : 3,
+    precipitation: 41
+}, {
+    monthOrdinal : 4,
+    high : 14,
+    low : 6,
+    precipitation: 44
+}, {
+    monthOrdinal : 5,
+    high : 18,
+    low : 9,
+    precipitation: 56
+}, {
+    monthOrdinal : 6,
+    high : 21,
+    low : 12,
+    precipitation: 57
+}, {
+    monthOrdinal : 7,
+    high : 24,
+    low : 14,
+    precipitation: 57
+}, {
+    monthOrdinal : 8,
+    high : 24,
+    low : 14,
+    precipitation: 55
+}, {
+    monthOrdinal : 9,
+    high : 21,
+    low : 11,
+    precipitation: 53
+}, {
+    monthOrdinal : 10,
+    high : 15,
+    low : 8,
+    precipitation: 56
+}, {
+    monthOrdinal : 11,
+    high : 9,
+    low : 4,
+    precipitation: 54
+}, {
+    monthOrdinal : 12,
+    high : 7,
+    low : 2,
+    precipitation: 49
+}]

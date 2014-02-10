@@ -1,0 +1,56 @@
+{
+    "type": "jsonpstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": true,
+        "designer|userClassName": "Tunes",
+        "model": "Tune",
+        "sortRoot": null,
+        "storeId": "Tunes"
+    },
+    "designerId": "70c6269d-95a4-443e-9297-3feb7f3e04a6",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.JsonP",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "url": "https://itunes.apple.com/us/rss/topmusicvideos/limit=100/json"
+            },
+            "designerId": "8b17fa6d-ad98-4cc1-88bd-5832ea0aa944",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "feed.entry"
+                    },
+                    "designerId": "2c4cf447-8f43-4fdb-be7b-20c1b2d0b792"
+                }
+            ]
+        },
+        {
+            "type": "Ext.util.Sorter",
+            "reference": {
+                "name": "sorters",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "property": "artist"
+            },
+            "designerId": "650f75d4-0c41-4757-aed2-c05598c0d6e7"
+        }
+    ]
+}

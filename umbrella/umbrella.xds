@@ -1,0 +1,56 @@
+{
+    "name": "umbrella",
+    "settings": {
+        "cmd": {
+            "license": "commercial",
+            "cmdVersion": "4.0.2.67",
+            "frameworkVersion": "2.3.1.410"
+        },
+        "canvasControls": {
+            "viewportSize": {
+                "name": "iPhone",
+                "builtIn": true,
+                "height": 480,
+                "width": 320
+            },
+            "viewportOrientation": "portrait"
+        },
+        "urlPrefix": "http://ln5dev-mbx-w-1.mindbrix.com:59718/umbrella",
+        "exportPath": "",
+        "spacesToIndent": 4,
+        "sdkPath": "",
+        "lineEnding": "CRLF",
+        "genTimestamps": false,
+        "cacheBust": false,
+        "buildShouldOverwriteIndex": true,
+        "generateArchitectVersion": true,
+        "displayfield-ExtBox1-1324-inputEl": "Not Installed"
+    },
+    "xdsVersion": "3.0.2",
+    "xdsBuild": 1375,
+    "schemaVersion": 1,
+    "upgradeVersion": 300000000004,
+    "framework": "touch23",
+    "viewOrderMap": {
+        "view": [
+            "dbad0a76-c58d-4744-8890-371c467e4ea9",
+            "0202ff8f-e5e4-4ad9-ad71-1ddcab7fda58",
+            "1de963bf-d4c8-4cc2-ab37-095efe88bad8"
+        ],
+        "store": [],
+        "controller": [
+            "22c5c674-5d8b-4443-870e-16e5e9db2fd6"
+        ],
+        "model": [],
+        "resource": [
+            "56111cb8-13eb-48d3-996a-544024f3dbec",
+            "995bca0f-e72f-4baf-81e8-fcfc34b1d531",
+            "b9e6c3d5-10c6-41ed-a178-abe8d82bcf81",
+            "0e38bcb4-9f53-4e29-8a7c-5f6bd65093cc",
+            "ffb82666-abf9-41c2-adc3-e909fee20008"
+        ],
+        "app": [
+            "application"
+        ]
+    }
+}

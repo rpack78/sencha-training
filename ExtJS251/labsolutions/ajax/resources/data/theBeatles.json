@@ -1,0 +1,21 @@
+[ {
+    first : 'John',
+    last : 'Lennon',
+    dob : '1940/10/09',
+    img : 'resources/images/john.png'
+}, {
+    first : 'Paul',
+    last : 'McCartney',
+    dob : '1942/06/18',
+    img : 'resources/images/paul.png'
+}, {
+    first : 'George',
+    last : 'Harrison',
+    dob : '1943/02/25',
+    img : 'resources/images/george.png'
+}, {
+    first : 'Ringo',
+    last : 'Starr',
+    dob : '1940/07/07',
+    img : 'resources/images/ringo.png'
+} ]

@@ -1,0 +1,13 @@
+{
+    "type": "jsresource",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "js1",
+        "url": "app/util/Geocode.js"
+    },
+    "designerId": "0e38bcb4-9f53-4e29-8a7c-5f6bd65093cc"
+}

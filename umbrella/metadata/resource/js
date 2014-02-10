@@ -1,0 +1,13 @@
+{
+    "type": "jsresource",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "js",
+        "url": "app/util/Rainy.js"
+    },
+    "designerId": "b9e6c3d5-10c6-41ed-a178-abe8d82bcf81"
+}

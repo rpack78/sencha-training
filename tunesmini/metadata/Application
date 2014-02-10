@@ -1,0 +1,25 @@
+{
+    "type": "Ext.app.Application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "controllers": [
+            "TunesController"
+        ],
+        "models": [
+            "Tune"
+        ],
+        "name": "TunesMini",
+        "stores": [
+            "Tunes"
+        ],
+        "views": [
+            "MyViewport",
+            "PreviewWindow"
+        ]
+    },
+    "designerId": "application"
+}

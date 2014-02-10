@@ -1,0 +1,45 @@
+div.picture {
+    float: left;
+    text-align: center;
+    height: 144px;
+    padding: 2px 8px 8px 8px;
+    width: 132px;
+    background: #EDEDED;
+    color: #777777;
+    opacity: 1.0;
+    overflow: hidden;
+    border: 2px solid #AAAAAA;
+    margin: 12px;
+}
+
+div.picture a img {
+    margin-top: 4px;
+    height: 20px;
+    width: 55px;
+}
+
+div.picture a {
+    position:relative;
+    text-align: center;
+    margin: 2px 0 20px 0px;   
+    border: none;
+}
+
+div.picture figure {
+    margin: 8px 0px 8px 0px;
+}
+
+div.picture figcaption {
+	font-size: 8pt;
+}
+
+div.picture.overpicture {
+    opacity: 0.7;
+	background: #FFFFFF;
+    color: black;
+}
+
+div.selectpicture figure {
+    background: #DFE8F7;
+}
+

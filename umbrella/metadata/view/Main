@@ -1,0 +1,35 @@
+{
+    "type": "Ext.carousel.Carousel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|initialView": true,
+        "designer|userClassName": "Main"
+    },
+    "designerId": "dbad0a76-c58d-4744-8890-371c467e4ea9",
+    "cn": [
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "designerId": "ae16b61e-bcb1-4f8a-9060-ebd65849e96e",
+            "masterInstanceId": "0202ff8f-e5e4-4ad9-ad71-1ddcab7fda58"
+        },
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "designerId": "8b314a8b-0cdd-41a6-b581-e1d0b84c0834",
+            "masterInstanceId": "1de963bf-d4c8-4cc2-ab37-095efe88bad8"
+        }
+    ]
+}

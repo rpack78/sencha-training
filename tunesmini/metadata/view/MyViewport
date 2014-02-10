@@ -1,0 +1,72 @@
+{
+    "type": "Ext.container.Viewport",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|initialView": true,
+        "designer|userClassName": "MyViewport",
+        "layout": "fit"
+    },
+    "designerId": "a6883677-65f1-4446-a33a-b3f8b2349d85",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout": "fit",
+                "title": "iTunes Music Videos"
+            },
+            "designerId": "7a5442e5-533c-4a62-9b80-39615f158898",
+            "cn": [
+                {
+                    "type": "Ext.view.View",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "autoScroll": true,
+                        "itemCls": "video",
+                        "itemId": "tunesView",
+                        "itemSelector": "div",
+                        "overItemCls": "overvideo",
+                        "store": "Tunes"
+                    },
+                    "designerId": "a6fc0564-e3f7-4715-9af3-0f831340cb9d",
+                    "cn": [
+                        {
+                            "type": "Ext.XTemplate",
+                            "reference": {
+                                "name": "itemTpl",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "itemTpl",
+                                "implHandler": [
+                                    "<a href=\"{link}\" target=\"itunes_store\">\r",
+                                    "    <img src=\"resources/images/iTunesBadge.gif\"/>\r",
+                                    "</a>\r",
+                                    "<figure>\r",
+                                    "    <img src=\"{image}\" />\r",
+                                    "    <figcaption>{title}<br/>{artist}</figcaption><br/>\r",
+                                    "</figure>\r",
+                                    ""
+                                ]
+                            },
+                            "designerId": "0983161b-2e35-4135-bf4b-d57cdf5102ad"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

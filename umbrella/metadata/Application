@@ -1,0 +1,20 @@
+{
+    "type": "Ext.app.Application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "controllers": [
+            "Main"
+        ],
+        "name": "Umbrella",
+        "views": [
+            "Main",
+            "Umbrella",
+            "Location"
+        ]
+    },
+    "designerId": "application"
+}

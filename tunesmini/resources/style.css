@@ -1,0 +1,45 @@
+div.video {
+    float: left;
+    text-align: center;
+    height: 144px;
+    padding: 2px 8px 8px 8px;
+    width: 132px;
+    background: #EDEDED;
+    color: #777777;
+    opacity:0.6;
+    overflow: hidden;
+    border: 2px solid #AAAAAA;
+    margin: 12px;
+}
+
+div.video a img {
+    margin-top: 4px;
+    height: 20px;
+    width: 55px;
+}
+
+div.video a {
+    position:relative;
+    text-align: center;
+    margin: 2px 0 20px 0px;   
+    border: none;
+}
+
+div.video figure {
+    margin: 8px 0px 8px 0px;
+}
+
+div.video figcaption {
+	font-size: 8pt;
+}
+
+div.video.overvideo {
+    opacity:1.0;
+	background: #FFFFFF;
+    color: black;
+}
+
+div.selectvideo figure {
+    background: #DFE8F7;
+}
+

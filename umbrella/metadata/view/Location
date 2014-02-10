@@ -1,0 +1,137 @@
+{
+    "type": "Ext.form.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "container|pack": "center",
+        "designer|userAlias": "location",
+        "designer|userClassName": "Location",
+        "layout": "vbox",
+        "rainy": [
+            "null"
+        ]
+    },
+    "configAlternates": {
+        "rainy": "object"
+    },
+    "designerId": "1de963bf-d4c8-4cc2-ab37-095efe88bad8",
+    "customConfigs": [
+        {
+            "group": "(Custom Properties)",
+            "name": "rainy",
+            "type": "string"
+        }
+    ],
+    "cn": [
+        {
+            "type": "Ext.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "itemId": "city",
+                "label": "City"
+            },
+            "designerId": "3c20820c-bacf-4c8f-b1d1-cd48985d7469"
+        },
+        {
+            "type": "Ext.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "itemId": "useCurrent",
+                "text": "Use Current Location"
+            },
+            "designerId": "ed1761b6-7a9d-4de4-810d-e1b603b3f8f6"
+        },
+        {
+            "type": "Ext.Component",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "height": 24
+            },
+            "designerId": "645405e4-7eaa-44d5-bdf0-6c2c17735036"
+        },
+        {
+            "type": "Ext.field.Checkbox",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "itemId": "rainy",
+                "label": "Rainy"
+            },
+            "designerId": "634222f7-f80b-4936-a871-46681caeee84",
+            "cn": [
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onRainyChange",
+                        "implHandler": [
+                            "this.setRainy(newValue);"
+                        ],
+                        "name": "change"
+                    },
+                    "designerId": "b5a905ea-09f0-46ff-a032-dd5f4beca4c6"
+                }
+            ]
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "rainy"
+                ],
+                "fn": "updateRainy",
+                "implHandler": [
+                    "if (rainy){\r",
+                    "    this.down('#rainy').check();\r",
+                    "} else {\r",
+                    "    this.down('#rainy').uncheck();\r",
+                    "}\r",
+                    "this.fireEvent('rainychange', this, rainy);"
+                ]
+            },
+            "designerId": "06c06664-ebea-4a30-a62a-f68c6b926407"
+        },
+        {
+            "type": "customevent",
+            "reference": {
+                "name": "customEvents",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "rainychange",
+                "params": [
+                    "location,rainy"
+                ]
+            },
+            "designerId": "4f0de953-1356-4c8d-871e-a34744e8d20c"
+        }
+    ]
+}

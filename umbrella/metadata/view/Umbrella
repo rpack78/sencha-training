@@ -1,0 +1,106 @@
+{
+    "type": "Ext.Container",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "umbrella",
+        "designer|userClassName": "Umbrella",
+        "layout": "card",
+        "rainy": [
+            "null"
+        ]
+    },
+    "configAlternates": {
+        "rainy": "object"
+    },
+    "designerId": "0202ff8f-e5e4-4ad9-ad71-1ddcab7fda58",
+    "customConfigs": [
+        {
+            "group": "(Custom Properties)",
+            "name": "rainy",
+            "type": "string"
+        }
+    ],
+    "cn": [
+        {
+            "type": "Ext.Container",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "masked": [
+                    "{xtype: 'loadmask', message:'Checking for rain...'}"
+                ]
+            },
+            "designerId": "487ef74e-0577-452b-a371-cb93cd358ea5"
+        },
+        {
+            "type": "Ext.Img",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "itemId": "closed",
+                "src": "resources/images/ClosedUmbrella.jpg"
+            },
+            "designerId": "9e1b387a-ac0a-4dad-a2c5-3cecfa3d944a"
+        },
+        {
+            "type": "Ext.Img",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "itemId": "open",
+                "src": "resources/images/OpenUmbrella.jpg"
+            },
+            "designerId": "a171be1f-48ff-4e0c-af0b-095586cebd2a"
+        },
+        {
+            "type": "Ext.TitleBar",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "docked": "top",
+                "itemId": "title"
+            },
+            "designerId": "2ba8ad39-d20b-476e-9274-019fdbf18814"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "rainy"
+                ],
+                "fn": "updateRainy",
+                "implHandler": [
+                    "if (rainy){\r",
+                    "    this.setActiveItem('#open');\r",
+                    "    this.down('#title').setTitle('Take Your Umbrella');\r",
+                    "} else {\r",
+                    "    this.setActiveItem('#closed');\r",
+                    "    this.down('#title').setTitle('Leave Your Umbrella');\r",
+                    "}"
+                ]
+            },
+            "designerId": "8cccec92-14bc-4ae6-8622-5d6cd7cce991"
+        }
+    ]
+}

@@ -1,0 +1,41 @@
+{
+    "type": "Ext.app.Controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "TunesController"
+    },
+    "designerId": "d0b8a01b-4f39-4a62-8760-d2a9541de80b",
+    "cn": [
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#tunesView",
+                "designer|targetType": "Ext.view.View",
+                "fn": "onTunesViewItemDblClick",
+                "implHandler": [
+                    "// Create an instance of the preview window \r",
+                    "// Have it update its template with the record the user selected \r",
+                    "// Show it\r",
+                    "\r",
+                    "Ext.create('TunesMini.view.PreviewWindow', {\r",
+                    "    data: record.getData(),\r",
+                    "    title: record.get('title')  + ', provided courtesy of iTunes'\r",
+                    "});\r",
+                    ""
+                ],
+                "name": "itemdblclick",
+                "scope": "me"
+            },
+            "designerId": "88dc6af9-1b2b-4b71-9e0f-b668e3d61ac5"
+        }
+    ]
+}
